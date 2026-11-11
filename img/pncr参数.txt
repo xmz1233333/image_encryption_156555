@@ -1,0 +1,25 @@
+clc; clear; close all;
+addpath('.\img');
+% Step 1: 读取图像
+%img = imread("2.1.05.tiff");  % 测试用小图像
+img = imread("lena.tiff");  % 测试用小图像
+[M, N,~] = size(img);
+fprintf('图像尺寸: %d x %d\n', M, N);
+% Step 2: 生成混沌序列
+x0 = 0.6;
+r = 4;
+seq = generate_chaos_01(x0, r, M, N);
+% Step 3: 加密参数 
+z = 0.6;
+BIG_NUMBER = 1e17;  % 大数因子
+%置乱密钥
+n=N;
+a=5;
+e=0.9;
+p=13;
+q=7;
+rng(0); % 设置随机数种子
+x1 = rand(1, n);   % 初始化 x1，长度为 N 的随机行向量
+%扩散密钥
+main_key = 0.75;
+mu=4.6;
